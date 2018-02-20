@@ -18,6 +18,9 @@ defmodule CommentsBroccoliWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+
+    get("/signup", SignupController, :new)
+    post("/signup", SignupController, :create)
   end
 
   # Other scopes may use custom stacks.

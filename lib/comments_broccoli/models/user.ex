@@ -17,11 +17,18 @@ defmodule CommentsBroccoli.User do
 
   @required_attrs ~w(email password)a
 
-  def signup_changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_attrs)
+  end
+
+  def signup_changeset(model, params) do
+    model
+    |> changeset(params)
     |> validate_required(@required_attrs)
     |> validate_length(:password, min: 6, max: 255)
+    |> unsafe_validate_unique([:email], CommentsBroccoli.Repo)
+    |> unique_constraint(:email)
     |> put_pw_hash()
   end
 

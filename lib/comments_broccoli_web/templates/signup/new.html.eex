@@ -1,0 +1,21 @@
+<h1>Signup for Comments Broccoli</h1>
+
+<%= form_for @changeset, signup_path(@conn, :create), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger" >
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= email_input f, :email, placeholder: "E-Mail", class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= password_input f, :password, placeholder: "Password", class: "form-control" %>
+    <%= error_tag f, :password %>
+  </div>
+
+  <%= submit "Create account", class: "btn btn-primary" %>
+<% end %>
