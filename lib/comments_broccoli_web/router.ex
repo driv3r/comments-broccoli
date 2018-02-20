@@ -7,6 +7,7 @@ defmodule CommentsBroccoliWeb.Router do
     plug(:fetch_flash)
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    plug(CommentsBroccoliWeb.Auth, repo: CommentsBroccoli.Repo)
   end
 
   pipeline :api do
@@ -18,6 +19,8 @@ defmodule CommentsBroccoliWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+
+    resources("/sessions", SessionController, only: ~w(new create delete)a)
 
     get("/signup", SignupController, :new)
     post("/signup", SignupController, :create)

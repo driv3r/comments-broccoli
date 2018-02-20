@@ -17,6 +17,7 @@ defmodule CommentsBroccoliWeb.SignupController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
+        |> CommentsBroccoliWeb.Auth.login(user)
         |> put_flash(:info, "Your account was created!")
         |> redirect(to: "/")
 
