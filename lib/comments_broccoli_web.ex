@@ -28,8 +28,9 @@ defmodule CommentsBroccoliWeb do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/comments_broccoli_web/templates",
-                        namespace: CommentsBroccoliWeb
+      use Phoenix.View,
+        root: "lib/comments_broccoli_web/templates",
+        namespace: CommentsBroccoliWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
