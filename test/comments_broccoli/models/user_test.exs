@@ -1,5 +1,5 @@
 defmodule CommentsBroccoli.UserTest do
-  use ExUnit.Case, async: true
+  use CommentsBroccoli.DataCase, async: true
 
   alias CommentsBroccoli.User
 

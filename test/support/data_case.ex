@@ -16,7 +16,7 @@ defmodule CommentsBroccoli.DataCase do
 
   using do
     quote do
-      alias CommentsBroccoli.Repo
+      alias CommentsBroccoli.{Repo, User}
 
       import Ecto
       import Ecto.Changeset
@@ -49,5 +49,24 @@ defmodule CommentsBroccoli.DataCase do
         String.replace(acc, "%{#{key}}", to_string(value))
       end)
     end)
+  end
+
+  @doc """
+  A helper that creates a user for futher tests.
+
+      setup :with_user
+
+      test "foo", %{user: user} do
+        # Your assertions here
+      end
+
+  """
+  def with_user(_ctx) do
+    {:ok, user} =
+      %CommentsBroccoli.User{}
+      |> CommentsBroccoli.User.signup_changeset(%{email: "foo@gmail.com", password: "password"})
+      |> CommentsBroccoli.Repo.insert()
+
+    [user: %{user | password: nil}]
   end
 end
