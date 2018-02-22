@@ -19,7 +19,11 @@ defmodule CommentsBroccoliWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+
       import CommentsBroccoliWeb.Router.Helpers
+      import CommentsBroccoli.DataCase
+
+      alias CommentsBroccoli.{Repo, User}
 
       # The default endpoint for testing
       @endpoint CommentsBroccoliWeb.Endpoint

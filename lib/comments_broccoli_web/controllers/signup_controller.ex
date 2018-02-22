@@ -22,7 +22,9 @@ defmodule CommentsBroccoliWeb.SignupController do
         |> redirect(to: "/")
 
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_status(422)
+        |> render("new.html", changeset: changeset)
     end
   end
 end

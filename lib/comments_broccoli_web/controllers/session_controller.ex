@@ -18,6 +18,7 @@ defmodule CommentsBroccoliWeb.SessionController do
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, "Invalid email/password combination")
+        |> put_status(422)
         |> render("new.html")
     end
   end
