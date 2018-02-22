@@ -22,7 +22,7 @@
                 <%= link "Log out", to: session_path(@conn, :delete, :current), method: :delete %>
               </li>
             <% else %>
-              <li><%= link "Register", to: signup_path(@conn, :new) %></li>
+              <li><%= link "Register", to: registration_path(@conn, :new) %></li>
               <li><%= link "Sign in", to: session_path(@conn, :new) %></li>
             <% end %>
           </ul>

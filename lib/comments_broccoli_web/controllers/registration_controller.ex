@@ -1,4 +1,4 @@
-defmodule CommentsBroccoliWeb.SignupController do
+defmodule CommentsBroccoliWeb.RegistrationController do
   use CommentsBroccoliWeb, :controller
 
   alias CommentsBroccoli.{Repo, User}

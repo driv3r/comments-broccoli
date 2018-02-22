@@ -22,8 +22,8 @@ defmodule CommentsBroccoliWeb.Router do
 
     resources("/sessions", SessionController, only: ~w(new create delete)a)
 
-    get("/signup", SignupController, :new)
-    post("/signup", SignupController, :create)
+    get("/registration", RegistrationController, :new)
+    post("/registration", RegistrationController, :create)
   end
 
   # Other scopes may use custom stacks.

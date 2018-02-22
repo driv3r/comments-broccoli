@@ -5,10 +5,10 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
     test "responds with signup form", %{conn: conn} do
       resp =
         conn
-        |> get(signup_path(conn, :new))
+        |> get(registration_path(conn, :new))
         |> html_response(200)
 
-      assert resp =~ ~r"Signup for Comments Broccoli"
+      assert resp =~ ~r"Register for Comments Broccoli"
     end
   end
 
@@ -18,7 +18,7 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
 
       resp =
         conn
-        |> post(signup_path(conn, :create), %{user: %{email: "", password: ""}})
+        |> post(registration_path(conn, :create), %{user: %{email: "", password: ""}})
         |> html_response(422)
 
       assert resp =~ ~r"can&#39;t be blank"
@@ -34,7 +34,9 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
 
       resp =
         conn
-        |> post(signup_path(conn, :create), %{user: %{email: "foo@example.com", password: "foo"}})
+        |> post(registration_path(conn, :create), %{
+          user: %{email: "foo@example.com", password: "foo"}
+        })
         |> html_response(422)
 
       assert resp =~ ~r"should be at least 6 character\(s\)"
@@ -52,7 +54,9 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
 
       resp =
         conn
-        |> post(signup_path(conn, :create), %{user: %{email: user.email, password: "password"}})
+        |> post(registration_path(conn, :create), %{
+          user: %{email: user.email, password: "password"}
+        })
         |> html_response(422)
 
       assert resp =~ ~r"has already been taken"
@@ -67,7 +71,7 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
       users_no = count()
 
       create_resp =
-        post(conn, signup_path(conn, :create), %{
+        post(conn, registration_path(conn, :create), %{
           user: %{email: "foo+signup@example.com", password: "password"}
         })
 
