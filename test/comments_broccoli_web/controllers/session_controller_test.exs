@@ -8,7 +8,7 @@ defmodule CommentsBroccoliWeb.SessionControllerTest do
         |> get(session_path(conn, :new))
         |> html_response(200)
 
-      assert resp =~ ~r"Sign in"
+      assert resp =~ ~r"Log in"
     end
   end
 
@@ -94,7 +94,7 @@ defmodule CommentsBroccoliWeb.SessionControllerTest do
         |> html_response(200)
 
       assert redir_resp =~ ~r"Register"
-      assert redir_resp =~ ~r"Sign in"
+      assert redir_resp =~ ~r"Log in"
       refute redir_resp =~ ~r"Log out"
     end
   end
