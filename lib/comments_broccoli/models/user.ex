@@ -22,7 +22,7 @@ defmodule CommentsBroccoli.User do
     |> cast(params, @required_attrs)
   end
 
-  def signup_changeset(model, params) do
+  def registration_changeset(model, params) do
     model
     |> changeset(params)
     |> validate_required(@required_attrs)

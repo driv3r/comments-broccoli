@@ -2,7 +2,7 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
   use CommentsBroccoliWeb.ConnCase, async: true
 
   describe "new/2" do
-    test "responds with signup form", %{conn: conn} do
+    test "responds with registration form", %{conn: conn} do
       resp =
         conn
         |> get(registration_path(conn, :new))
@@ -72,7 +72,7 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
 
       create_resp =
         post(conn, registration_path(conn, :create), %{
-          user: %{email: "foo+signup@example.com", password: "password"}
+          user: %{email: "foo+registration@example.com", password: "password"}
         })
 
       assert "/" = redir_path = redirected_to(create_resp, 302)
@@ -86,7 +86,7 @@ defmodule CommentsBroccoliWeb.SignupControllerTest do
       refute redir_resp =~ ~r"can't be blank"
       refute redir_resp =~ ~r"Oops, something went wrong! Please check the errors below."
       assert redir_resp =~ ~r"Your account was created!"
-      assert redir_resp =~ ~r"Log out", "should login user after successfull signup"
+      assert redir_resp =~ ~r"Log out", "should login user after successfull registration"
       assert_in_delta count(), users_no, 1, "should create user in DB"
     end
   end
