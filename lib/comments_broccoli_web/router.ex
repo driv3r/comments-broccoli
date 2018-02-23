@@ -1,5 +1,7 @@
 defmodule CommentsBroccoliWeb.Router do
   use CommentsBroccoliWeb, :router
+  use Plug.ErrorHandler
+  use Sentry.Plug
 
   pipeline :browser do
     plug(:accepts, ["html"])
