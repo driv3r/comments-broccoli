@@ -42,7 +42,8 @@ defmodule CommentsBroccoli.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:argon2_elixir, "~> 1.2.14"},
-      {:comeonin, "~> 4.1.0"}
+      {:comeonin, "~> 4.1.0"},
+      {:sentry, "~> 6.1.0"}
     ]
   end
 

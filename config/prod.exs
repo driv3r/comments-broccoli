@@ -17,5 +17,9 @@ config :comments_broccoli, CommentsBroccoli.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
+config :sentry,
+  dsn: System.get_env("SENTRY_DSN"),
+  included_environments: [:prod]
+
 # won't work with heroku
 # import_config "prod.secret.exs"
