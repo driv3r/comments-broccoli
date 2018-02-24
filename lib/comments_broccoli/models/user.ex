@@ -7,10 +7,14 @@ defmodule CommentsBroccoli.User do
 
   import Ecto.Changeset
 
+  alias CommentsBroccoli.Website
+
   schema "users" do
     field(:email, :string)
     field(:password, :string, virtual: true)
     field(:password_hash, :string)
+
+    has_many(:websites, Website)
 
     timestamps()
   end
