@@ -26,6 +26,8 @@ defmodule CommentsBroccoliWeb.Router do
 
     get("/registration", RegistrationController, :new)
     post("/registration", RegistrationController, :create)
+
+    resources("/websites", WebsiteController)
   end
 
   # Other scopes may use custom stacks.
