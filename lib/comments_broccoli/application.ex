@@ -20,7 +20,9 @@ defmodule CommentsBroccoli.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: CommentsBroccoli.Supervisor]
 
-    :ok = :error_logger.add_report_handler(Sentry.Logger)
+    if Mix.env == :prod do
+      :ok = :error_logger.add_report_handler(Sentry.Logger)
+    end
 
     Supervisor.start_link(children, opts)
   end
