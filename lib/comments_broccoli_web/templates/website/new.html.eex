@@ -1,0 +1,5 @@
+<h2>Add new website</h2>
+
+<%= render "form.html", Map.put(assigns, :action, website_path(@conn, :create)) %>
+
+<%= link "Back", to: website_path(@conn, :index) %>

@@ -59,7 +59,7 @@ defmodule CommentsBroccoli.WebsiteOperations do
   def create_website(%Website{} = website, attrs \\ %{}) do
     website
     |> Website.changeset(attrs)
-    |> Ecto.Schema.put_change(:token, gen_token())
+    |> Ecto.Changeset.put_change(:token, gen_token())
     |> Repo.insert()
   end
 

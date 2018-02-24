@@ -1,0 +1,16 @@
+<h2><%= @website.title %></h2>
+
+<p>URL: <code><%= @website.url %></code></p>
+
+<p>Integration Token: <code><%= @website.token %></code></p>
+
+<p>
+  <%= link "Back", to: website_path(@conn, :index), class: "btn" %>
+  <%= link "Edit", to: website_path(@conn, :edit, @website), class: "btn btn-primary" %>
+  <%= link "Delete", to: website_path(@conn, :delete, @website),
+                     method: :delete,
+                     class: "btn btn-danger pull-right",
+                     data: [
+                       confirm: "Are You sure? This will delete all related comments and pages and it can't be reversed"
+                     ] %>
+</p>

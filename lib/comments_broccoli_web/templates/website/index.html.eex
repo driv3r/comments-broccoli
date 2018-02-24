@@ -1,0 +1,29 @@
+<h2>Your Websites</h2>
+
+<p>
+  <%= link "Add Website", to: website_path(@conn, :new), class: "btn btn-primary" %>
+</p>
+
+<%= unless @websites == [] do %>
+<table class="table" >
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>URL</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for website <- @websites do %>
+      <tr>
+        <td><%= link website.title, to: website_path(@conn, :show, website) %></td>
+        <td><%= website.url %></td>
+        <td class="text-right">
+          <%= link "Edit", to: website_path(@conn, :edit, website) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

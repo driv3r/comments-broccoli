@@ -42,19 +42,15 @@ defmodule CommentsBroccoliWeb.WebsiteController do
   end
 
   def edit(conn, %{"id" => id}) do
-    changeset =
-      conn.assigns.current_user
-      |> WebsiteOps.get_website!(id)
-      |> WebsiteOps.change_website()
+    website = WebsiteOps.get_website!(conn.assigns.current_user, id)
+    changeset = WebsiteOps.change_website(website)
 
-    render(conn, "edit.html", changeset: changeset)
+    render(conn, "edit.html", website: website, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "website" => website_params}) do
-    changeset =
-      conn.assigns.current_user
-      |> WebsiteOps.get_website!(id)
-      |> WebsiteOps.update_website(website_params)
+    website = WebsiteOps.get_website!(conn.assigns.current_user, id)
+    changeset = WebsiteOps.update_website(website, website_params)
 
     case changeset do
       {:ok, website} ->
@@ -65,15 +61,13 @@ defmodule CommentsBroccoliWeb.WebsiteController do
       {:error, changeset} ->
         conn
         |> put_status(422)
-        |> render("edit.html", changeset: changeset)
+        |> render("edit.html", website: website, changeset: changeset)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    changeset =
-      conn.assigns.current_user
-      |> WebsiteOps.get_website!(id)
-      |> WebsiteOps.delete_website()
+    website = WebsiteOps.get_website!(conn.assigns.current_user, id)
+    changeset = WebsiteOps.delete_website(website)
 
     case changeset do
       {:ok, website} ->
@@ -84,7 +78,8 @@ defmodule CommentsBroccoliWeb.WebsiteController do
       {:error, changeset} ->
         conn
         |> put_status(422)
-        |> render("edit.html", changeset: changeset)
+        |> put_flash(:alert, "Couldn't delete the website")
+        |> render("show.html", website: website, changeset: changeset)
     end
   end
 end
