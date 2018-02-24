@@ -1,7 +1,6 @@
 defmodule CommentsBroccoli.WebsiteOperations do
 
   import Ecto, only: [assoc: 2]
-  import Ecto.Query
 
   alias CommentsBroccoli.{Repo, User, Website}
 
@@ -40,6 +39,15 @@ defmodule CommentsBroccoli.WebsiteOperations do
     |> Repo.get!(id)
   end
 
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking website changes.
+
+  ## Examples
+
+      iex> change_website(website)
+      %Ecto.Changeset{source: %Website{}}
+
+  """
   def change_website(%Website{} = website) do
     Website.changeset(website, %{})
   end
@@ -63,12 +71,36 @@ defmodule CommentsBroccoli.WebsiteOperations do
     |> Repo.insert()
   end
 
+  @doc """
+  Updates a website.
+
+  ## Examples
+
+      iex> update_website(website, %{field: new_value})
+      {:ok, %Website{}}
+
+      iex> update_website(website, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
   def update_website(%Website{} = website, attrs \\ %{}) do
     website
     |> Website.changeset(attrs)
     |> Repo.update()
   end
 
+  @doc """
+  Deletes a Website.
+
+  ## Examples
+
+      iex> delete_website(website)
+      {:ok, %Website{}}
+
+      iex> delete_website(website)
+      {:error, %Ecto.Changeset{}}
+
+  """
   def delete_website(%Website{} = website) do
     Repo.delete(website)
   end

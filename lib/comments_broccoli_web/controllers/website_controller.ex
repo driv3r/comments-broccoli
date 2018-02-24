@@ -70,7 +70,7 @@ defmodule CommentsBroccoliWeb.WebsiteController do
     changeset = WebsiteOps.delete_website(website)
 
     case changeset do
-      {:ok, website} ->
+      {:ok, _website} ->
         conn
         |> put_flash(:info, "Your website was removed")
         |> redirect(to: website_path(conn, :index))
