@@ -1,4 +1,4 @@
-defmodule CommentsBroccoli.WebsiteOperations do
+defmodule CommentsBroccoli.UserWebsiteOperations do
 
   import Ecto, only: [assoc: 2]
 
@@ -39,17 +39,10 @@ defmodule CommentsBroccoli.WebsiteOperations do
     |> Repo.get!(id)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking website changes.
-
-  ## Examples
-
-      iex> change_website(website)
-      %Ecto.Changeset{source: %Website{}}
-
-  """
-  def change_website(%Website{} = website) do
-    Website.changeset(website, %{})
+  def new_website(%User{} = user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:websites)
+    |> Website.changeset(attrs)
   end
 
   @doc """
@@ -64,11 +57,26 @@ defmodule CommentsBroccoli.WebsiteOperations do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_website(%Website{} = website, attrs \\ %{}) do
-    website
-    |> Website.changeset(attrs)
+  def create_website(%User{} = user, attrs) do
+    user
+    |> new_website(attrs)
     |> Ecto.Changeset.put_change(:token, gen_token())
     |> Repo.insert()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking website changes.
+
+  ## Examples
+
+      iex> edit_website(website)
+      %Ecto.Changeset{source: %Website{}}
+
+  """
+  def edit_website(%User{} = user, website_id, attrs \\ %{}) do
+    website = get_website!(user, website_id)
+
+    {website, Website.changeset(website, attrs)}
   end
 
   @doc """
@@ -83,10 +91,10 @@ defmodule CommentsBroccoli.WebsiteOperations do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_website(%Website{} = website, attrs \\ %{}) do
-    website
-    |> Website.changeset(attrs)
-    |> Repo.update()
+  def update_website(%User{} = user, website_id, attrs) do
+    {website, changeset} = edit_website(user, website_id, attrs)
+
+    {website, Repo.update(changeset)}
   end
 
   @doc """
@@ -101,8 +109,10 @@ defmodule CommentsBroccoli.WebsiteOperations do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_website(%Website{} = website) do
-    Repo.delete(website)
+  def delete_website(%User{} = user, website_id) do
+    website = get_website!(user, website_id)
+
+    {website, Repo.delete(website)}
   end
 
   @token_length 32

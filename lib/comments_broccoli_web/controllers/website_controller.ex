@@ -1,32 +1,34 @@
 defmodule CommentsBroccoliWeb.WebsiteController do
   use CommentsBroccoliWeb, :controller
 
-  alias CommentsBroccoli.WebsiteOperations, as: WebsiteOps
+  alias CommentsBroccoli.UserWebsiteOperations, as: UserWebsiteOps
 
-  def index(conn, _params) do
-    websites = WebsiteOps.list_websites(conn.assigns.current_user)
+  def action(conn, _) do
+    apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
+  end
+
+  def index(conn, _params, user) do
+    websites = UserWebsiteOps.list_websites(user)
     render(conn, "index.html", websites: websites)
   end
 
-  def show(conn, %{"id" => id}) do
-    website = WebsiteOps.get_website!(conn.assigns.current_user, id)
+  def show(conn, %{"id" => id}, user) do
+    website = UserWebsiteOps.get_website!(user, id)
     render(conn, "show.html", website: website)
   end
 
-  def new(conn, _params) do
-    changeset =
-      conn.assigns.current_user
-      |> Ecto.build_assoc(:websites)
-      |> WebsiteOps.change_website()
+  def new(conn, _params, user) do
+    changeset = UserWebsiteOps.new_website(user)
 
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"website" => website_params}) do
+  def create(conn, %{"website" => website_params}, user) do
     changeset =
-      conn.assigns.current_user
-      |> Ecto.build_assoc(:websites)
-      |> WebsiteOps.create_website(website_params)
+      UserWebsiteOps.create_website(
+        user,
+        website_params
+      )
 
     case changeset do
       {:ok, website} ->
@@ -41,16 +43,15 @@ defmodule CommentsBroccoliWeb.WebsiteController do
     end
   end
 
-  def edit(conn, %{"id" => id}) do
-    website = WebsiteOps.get_website!(conn.assigns.current_user, id)
-    changeset = WebsiteOps.change_website(website)
+  def edit(conn, %{"id" => id}, user) do
+    {website, changeset} = UserWebsiteOps.edit_website(user, id)
 
     render(conn, "edit.html", website: website, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "website" => website_params}) do
-    website = WebsiteOps.get_website!(conn.assigns.current_user, id)
-    changeset = WebsiteOps.update_website(website, website_params)
+  def update(conn, %{"id" => id, "website" => website_params}, user) do
+    {website, changeset} =
+      UserWebsiteOps.update_website(user, id, website_params)
 
     case changeset do
       {:ok, website} ->
@@ -65,9 +66,8 @@ defmodule CommentsBroccoliWeb.WebsiteController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    website = WebsiteOps.get_website!(conn.assigns.current_user, id)
-    changeset = WebsiteOps.delete_website(website)
+  def delete(conn, %{"id" => id}, user) do
+    {website, changeset} = UserWebsiteOps.delete_website(user, id)
 
     case changeset do
       {:ok, _website} ->
