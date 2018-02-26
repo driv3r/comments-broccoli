@@ -3,6 +3,8 @@ defmodule CommentsBroccoliWeb.WebsiteController do
 
   alias CommentsBroccoli.UserWebsiteOperations, as: UserWebsiteOps
 
+  plug :authenticate_user
+
   def action(conn, _) do
     apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
   end
