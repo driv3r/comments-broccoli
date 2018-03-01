@@ -1,7 +1,10 @@
 defmodule CommentsBroccoliWeb.Router do
   use CommentsBroccoliWeb, :router
-  use Plug.ErrorHandler
-  use Sentry.Plug
+
+  if Mix.env == :prod do
+    use Plug.ErrorHandler
+    use Sentry.Plug
+  end
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -26,6 +29,8 @@ defmodule CommentsBroccoliWeb.Router do
 
     get("/registration", RegistrationController, :new)
     post("/registration", RegistrationController, :create)
+
+    resources("/websites", WebsiteController)
   end
 
   # Other scopes may use custom stacks.

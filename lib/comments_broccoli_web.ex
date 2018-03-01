@@ -23,6 +23,7 @@ defmodule CommentsBroccoliWeb do
       import Plug.Conn
       import CommentsBroccoliWeb.Router.Helpers
       import CommentsBroccoliWeb.Gettext
+      import CommentsBroccoliWeb.Auth, only: [authenticate_user: 2]
     end
   end
 
@@ -49,6 +50,7 @@ defmodule CommentsBroccoliWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import CommentsBroccoliWeb.Auth, only: [authenticate_user: 2]
     end
   end
 

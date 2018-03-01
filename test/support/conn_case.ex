@@ -21,6 +21,7 @@ defmodule CommentsBroccoliWeb.ConnCase do
       use Phoenix.ConnTest
 
       import CommentsBroccoliWeb.Router.Helpers
+      import CommentsBroccoliWeb.ConnCase
       import CommentsBroccoli.DataCase
 
       alias CommentsBroccoli.{Repo, User}
@@ -38,5 +39,14 @@ defmodule CommentsBroccoliWeb.ConnCase do
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  def login(%{conn: conn, user: user}) do
+    {
+      :ok,
+      [
+        conn: Plug.Conn.assign(conn, :current_user, user)
+      ]
+    }
   end
 end

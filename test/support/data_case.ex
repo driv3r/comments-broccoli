@@ -67,6 +67,15 @@ defmodule CommentsBroccoli.DataCase do
       |> CommentsBroccoli.User.registration_changeset(%{email: "foo@example.com", password: "password"})
       |> CommentsBroccoli.Repo.insert()
 
-    [user: %{user | password: nil}]
+    {:ok, [user: %{user | password: nil}]}
   end
+
+  def with_website(%{user: user}) do
+    attrs = %{title: "foo", url: "http://example.com"}
+
+    {:ok, website} = CommentsBroccoli.UserWebsiteOperations.create_website(user, attrs)
+
+    {:ok, [website: website]}
+  end
+
 end

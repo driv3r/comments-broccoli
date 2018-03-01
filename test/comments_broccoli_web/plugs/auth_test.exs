@@ -121,6 +121,29 @@ defmodule CommentsBroccoliWeb.AuthTest do
     end
   end
 
+  describe "#authenticate_user: when current user is set in conn" do
+    test "passes the request" do
+      conn =
+        conn_with_session()
+        |> Auth.login(%User{id: 123})
+        |> Auth.authenticate_user()
+
+      refute conn.halted
+    end
+  end
+
+  describe "#authenticate_user: when current user is missing" do
+    test "halts the request" do
+      conn =
+        conn_with_session()
+        |> Phoenix.ConnTest.fetch_flash()
+        |> Auth.authenticate_user()
+
+      assert conn.status == 302
+      assert conn.halted
+    end
+  end
+
   def conn_with_session(session \\ %{}) do
     opts = Plug.Session.init(store: :cookie, key: "_comments_broccoli", signing_salt: "foo")
 
