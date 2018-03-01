@@ -3,14 +3,6 @@ defmodule CommentsBroccoli.UserWebsiteOperationsTest do
 
   alias CommentsBroccoli.{Website, UserWebsiteOperations}
 
-  def with_website(%{user: user}) do
-    attrs = %{title: "foo", url: "http://example.com"}
-
-    {:ok, website} = UserWebsiteOperations.create_website(user, attrs)
-
-    {:ok, [website: website]}
-  end
-
   describe "list_websites/1 when user doesn't have any websites" do
     setup :with_user
 

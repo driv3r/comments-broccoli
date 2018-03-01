@@ -16,9 +16,18 @@ defmodule CommentsBroccoliWeb.Auth do
 
   def call(conn, repo) do
     user_id = get_session(conn, :user_id)
-    user = user_id && repo.get(User, user_id)
 
-    assign(conn, :current_user, user)
+
+    cond do
+      user = conn.assigns[:current_user] ->
+        conn
+
+      user = user_id && repo.get(User, user_id) ->
+        assign(conn, :current_user, user)
+
+      true ->
+        assign(conn, :current_user, nil)
+    end
   end
 
   def login(conn, user) do
@@ -52,14 +61,16 @@ defmodule CommentsBroccoliWeb.Auth do
   import Phoenix.Controller, only: [put_flash: 3, redirect: 2]
   alias CommentsBroccoliWeb.Router.Helpers
 
-  def authenticate_user(conn, _opts) do
-    if conn.assigns.current_user do
-      conn
-    else
-      conn
-      |> put_flash(:error, "You must be logged in to access that page")
-      |> redirect(to: Helpers.session_path(conn, :new))
-      |> halt()
+  def authenticate_user(conn, _opts \\ nil) do
+    case conn.assigns do
+      %{current_user: %User{}} ->
+        conn
+
+      _ ->
+        conn
+        |> put_flash(:alert, "You must be logged in to access that page")
+        |> redirect(to: Helpers.session_path(conn, :new))
+        |> halt()
     end
   end
 end
