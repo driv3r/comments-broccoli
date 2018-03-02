@@ -3,7 +3,7 @@ defmodule CommentsBroccoliWeb.WebsiteController do
 
   alias CommentsBroccoli.UserWebsiteOperations, as: UserWebsiteOps
 
-  plug :authenticate_user
+  plug(:authenticate_user)
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
@@ -52,8 +52,7 @@ defmodule CommentsBroccoliWeb.WebsiteController do
   end
 
   def update(conn, %{"id" => id, "website" => website_params}, user) do
-    {website, changeset} =
-      UserWebsiteOps.update_website(user, id, website_params)
+    {website, changeset} = UserWebsiteOps.update_website(user, id, website_params)
 
     case changeset do
       {:ok, website} ->

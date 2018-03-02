@@ -64,7 +64,10 @@ defmodule CommentsBroccoli.DataCase do
   def with_user(_ctx) do
     {:ok, user} =
       %CommentsBroccoli.User{}
-      |> CommentsBroccoli.User.registration_changeset(%{email: "foo@example.com", password: "password"})
+      |> CommentsBroccoli.User.registration_changeset(%{
+        email: "foo@example.com",
+        password: "password"
+      })
       |> CommentsBroccoli.Repo.insert()
 
     {:ok, [user: %{user | password: nil}]}
@@ -77,5 +80,4 @@ defmodule CommentsBroccoli.DataCase do
 
     {:ok, [website: website]}
   end
-
 end

@@ -40,7 +40,9 @@ defmodule CommentsBroccoli.UserWebsiteOperationsTest do
   describe "new_website/2" do
     test "returns new `%Website{}` with set user id" do
       user = %User{id: 9_001}
-      assert UserWebsiteOperations.new_website(user) == Website.changeset(%Website{user_id: 9_001})
+
+      assert UserWebsiteOperations.new_website(user) ==
+               Website.changeset(%Website{user_id: 9_001})
     end
   end
 
@@ -106,7 +108,8 @@ defmodule CommentsBroccoli.UserWebsiteOperationsTest do
     setup [:with_user, :with_website]
 
     test "returns deleted website", %{user: user, website: given_website} do
-      {found_website, {:ok, website}} = UserWebsiteOperations.delete_website(user, given_website.id)
+      {found_website, {:ok, website}} =
+        UserWebsiteOperations.delete_website(user, given_website.id)
 
       assert found_website == given_website
       assert website.__meta__.state == :deleted

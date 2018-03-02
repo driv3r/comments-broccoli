@@ -6,7 +6,7 @@ defmodule CommentsBroccoli.WebsiteTest do
   describe "changeset/2 when missing attributes" do
     test "is invalid" do
       changeset = Website.changeset(%Website{}, %{})
-      refute  changeset.valid?
+      refute changeset.valid?
 
       {msg, _} = changeset.errors[:title]
       assert msg == "can't be blank"

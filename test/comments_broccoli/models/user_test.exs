@@ -6,7 +6,10 @@ defmodule CommentsBroccoli.UserTest do
   describe "registration_changeset/2 when all attributes are valid" do
     test "is valid" do
       changeset =
-        User.registration_changeset(%User{}, %{email: "john.doe@example.com", password: "mysecret"})
+        User.registration_changeset(%User{}, %{
+          email: "john.doe@example.com",
+          password: "mysecret"
+        })
 
       assert changeset.valid?
     end

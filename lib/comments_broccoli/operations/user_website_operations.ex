@@ -1,5 +1,4 @@
 defmodule CommentsBroccoli.UserWebsiteOperations do
-
   import Ecto, only: [assoc: 2]
 
   alias CommentsBroccoli.{Repo, User, Website}
@@ -120,7 +119,7 @@ defmodule CommentsBroccoli.UserWebsiteOperations do
   defp gen_token do
     @token_length
     |> :crypto.strong_rand_bytes()
-    |> Base.encode64
+    |> Base.encode64()
     |> binary_part(0, @token_length)
   end
 end
