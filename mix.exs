@@ -43,7 +43,8 @@ defmodule CommentsBroccoli.Mixfile do
       {:cowboy, "~> 1.0"},
       {:argon2_elixir, "~> 1.2.14"},
       {:comeonin, "~> 4.1.0"},
-      {:sentry, "~> 6.1.0"}
+      {:sentry, "~> 6.1.0"},
+      {:junit_formatter, ">= 0.0.0", only: :test}
     ]
   end
 
