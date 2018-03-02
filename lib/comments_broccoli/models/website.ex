@@ -1,5 +1,4 @@
 defmodule CommentsBroccoli.Website do
-
   use Ecto.Schema
 
   import Ecto.Changeset

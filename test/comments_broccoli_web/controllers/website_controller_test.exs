@@ -216,5 +216,6 @@ defmodule CommentsBroccoliWeb.WebsiteControllerTest do
       assert updated_website.updated_at == website.updated_at
     end
   end
+
   defp count, do: Repo.aggregate(Website, :count, :id)
 end

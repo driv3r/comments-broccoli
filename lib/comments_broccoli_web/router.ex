@@ -1,7 +1,7 @@
 defmodule CommentsBroccoliWeb.Router do
   use CommentsBroccoliWeb, :router
 
-  if Mix.env == :prod do
+  if Mix.env() == :prod do
     use Plug.ErrorHandler
     use Sentry.Plug
   end

@@ -1,9 +1,9 @@
 if System.get_env("CI") == "true" do
-  junit_folder = Mix.Project.build_path() <> "/junit/#{Mix.Project.config[:app]}"
+  junit_folder = Mix.Project.build_path() <> "/junit/#{Mix.Project.config()[:app]}"
   File.mkdir_p!(junit_folder)
   :ok = Application.put_env(:junit_formatter, :report_dir, junit_folder)
 
-  ExUnit.configure formatters: [JUnitFormatter, ExUnit.CLIFormatter]
+  ExUnit.configure(formatters: [JUnitFormatter, ExUnit.CLIFormatter])
 end
 
 ExUnit.start()
