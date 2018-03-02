@@ -7,7 +7,7 @@ defmodule CommentsBroccoli.User do
 
   import Ecto.Changeset
 
-  alias CommentsBroccoli.Website
+  alias CommentsBroccoli.{User, Website}
 
   schema "users" do
     field(:email, :string)
@@ -21,12 +21,12 @@ defmodule CommentsBroccoli.User do
 
   @required_attrs ~w(email password)a
 
-  def changeset(model, params \\ %{}) do
+  def changeset(%User{} = model, params \\ %{}) do
     model
     |> cast(params, @required_attrs)
   end
 
-  def registration_changeset(model, params) do
+  def registration_changeset(%User{} = model, params) do
     model
     |> changeset(params)
     |> validate_required(@required_attrs)
