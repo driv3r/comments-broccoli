@@ -19,7 +19,7 @@ defmodule CommentsBroccoli.Page do
     page
     |> cast(attrs, [:slug])
     |> validate_required([:slug])
-    |> unsafe_validate_unique([:website_id, :slug], CommentsBroccoli.Repo)
+    |> assoc_constraint(:website)
     |> unique_constraint(:slug, name: :pages_website_id_slug_index)
   end
 end

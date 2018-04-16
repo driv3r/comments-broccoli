@@ -19,6 +19,7 @@ defmodule CommentsBroccoli.Comment do
   def changeset(%Comment{} = comment, attrs) do
     comment
     |> cast(attrs, [:name, :email, :message])
-    |> validate_required([:name, :email, :message])
+    |> validate_required([:message])
+    |> assoc_constraint(:page)
   end
 end
