@@ -56,6 +56,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       # specify any bash command here prefixed with `run: `
+      - run: mix format --check-formatted
       - run: mix test
 
       - store_test_results:  # upload test results for display in Test Summary
