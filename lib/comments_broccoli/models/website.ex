@@ -3,7 +3,7 @@ defmodule CommentsBroccoli.Website do
 
   import Ecto.Changeset
 
-  alias CommentsBroccoli.User
+  alias CommentsBroccoli.{User, Website, Page}
 
   schema "websites" do
     field(:title, :string)
@@ -11,11 +11,12 @@ defmodule CommentsBroccoli.Website do
     field(:token, :string)
 
     belongs_to(:user, User)
+    has_many(:pages, Page)
 
     timestamps()
   end
 
-  def changeset(model, attrs \\ %{}) do
+  def changeset(%Website{} = model, attrs \\ %{}) do
     model
     |> cast(attrs, [:title, :url])
     |> validate_required([:title, :url])

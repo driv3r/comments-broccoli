@@ -16,7 +16,7 @@ defmodule CommentsBroccoli.WebsiteTest do
     end
   end
 
-  describe "changeset/2 when attributes are presetn" do
+  describe "changeset/2 when attributes are present" do
     test "is valid" do
       changeset = Website.changeset(%Website{}, %{title: "foo", url: "foo"})
       assert changeset.valid?
